@@ -10,5 +10,7 @@ RUN mvn clean package -DskipTests -q
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/vehicle-rental-api-1.0.0.jar app.jar
+COPY entrypoint.sh entrypoint.sh
+RUN chmod +x entrypoint.sh
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "entrypoint.sh"]
