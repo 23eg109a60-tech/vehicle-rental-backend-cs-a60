@@ -11,10 +11,18 @@ services:
         value: postgresql
       - key: JPA_DIALECT
         value: org.hibernate.dialect.PostgreSQLDialect
-      - key: SPRING_DATASOURCE_URL
+      - key: DB_HOST
         fromDatabase:
           name: vehicle-rental-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: vehicle-rental-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: vehicle-rental-db
+          property: database
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: vehicle-rental-db
@@ -30,7 +38,7 @@ services:
       - key: COOKIE_SECURE
         value: "true"
       - key: FRONTEND_ORIGIN
-        value: https://vehicle-rental-frontend-cs-a60.onrender.com
+        value: https://vehicle-rental-frontend-jrim.onrender.com
       - key: SEED_DEMO_DATA
         value: always
 
