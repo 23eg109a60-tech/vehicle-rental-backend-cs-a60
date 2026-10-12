@@ -1,14 +1,16 @@
 services:
   - type: web
     name: vehicle-rental-backend
-    runtime: java
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     plan: free
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -jar target/vehicle-rental-api-1.0.0.jar
     healthCheckPath: /api/auth/session
     envVars:
       - key: DATABASE_PLATFORM
         value: postgresql
+      - key: JPA_DIALECT
+        value: org.hibernate.dialect.PostgreSQLDialect
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: vehicle-rental-db
@@ -31,8 +33,6 @@ services:
         value: https://vehicle-rental-frontend-cs-a60.onrender.com
       - key: SEED_DEMO_DATA
         value: always
-      - key: JPA_DIALECT
-        value: org.hibernate.dialect.PostgreSQLDialect
 
 databases:
   - name: vehicle-rental-db
